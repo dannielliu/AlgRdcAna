@@ -1,0 +1,18 @@
+#!/usr/bin/python
+
+import DMPSW
+import libDmpAlgRdcAna as RdcAna
+
+DMPSW.RootIOSvc.Set("InData/Read","../../test/DmpRdcData1.root")
+
+rdcAna = RdcAna.DmpAlgRdcAna()
+rdcAna.Set("RunMode","Dynode") # RunMode can be Pedestal, DynodeRatio
+rdcAna.Set("SetRange/Low","-300") # RunMode can be Pedestal, DynodeRatio
+rdcAna.Set("SetRange/Up","16000") # RunMode can be Pedestal, DynodeRatio
+#rdcAna.Set("RunMode","Dynode") # RunMode can be Pedestal, DynodeRatio
+
+DMPSW.AlgMgr.Append(rdcAna)
+
+DMPSW.Core.Initialize()
+DMPSW.Core.Run()
+DMPSW.Core.Finalize()
