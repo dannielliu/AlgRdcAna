@@ -73,7 +73,7 @@ bool DmpAlgRdcAna::InitializeDynodeRatioMode()
 	    for(int side=0;side<2;side++){
 		    char tmp[100];
 			  sprintf(tmp,"layer_%d_Bar_%d_side_%d",layer,barid,side);
-		    dynodeRatio[layer][barid][side]=new TH2D(tmp,tmp,200,adc_low,adc_up,200,adc_low,adc_up);
+		    dynodeRatio[layer][barid][side]=new TH2D(tmp,tmp,200,adc_low,adc_up/10,200,adc_low,adc_up);
 				sprintf(tmp,"dynode %d",dy1);
 				dynodeRatio[layer][barid][side]->GetXaxis()->SetTitle(tmp);
 				sprintf(tmp,"dynode %d",dy2);
@@ -126,7 +126,7 @@ bool DmpAlgRdcAna::ProcessDynodeRatioMode(short dy1,short dy2)
   //std::cout<<"dy1 is "<<dy1<<" dy2 is "<<dy2<<std::endl;
   int layer,barid,side,dynode;
   int bar[14][22][2][2];
-	memset(bar,-300,14*22*2*2);
+	memset(bar,-300,sizeof(bar));
   int evtsize;
   short gid,signal;
   evtsize = fBgo->GetSignalSize();
